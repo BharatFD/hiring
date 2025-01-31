@@ -1,0 +1,22 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const { faqRouter } = require('./routes/faq');
+
+dotenv.config();
+
+
+const app = express();
+
+app.use(express.json());
+
+app.use("/api/faq", faqRouter);
+
+async function main() {
+    app.listen(3000, (req, res)=> {
+        console.log("Server started on port 3000");
+    })
+    await mongoose.connect(process.env.MONGO_URL);
+}
+
+main();
