@@ -1,6 +1,8 @@
 const Router = require('express');
 const { translateTo, supportedLanguages } = require('../utils/utils');
 const { faqModel } = require('../database/db');
+const { sanitize } = require('../utils/sanitize');
+
 
 const faqRouter = Router();
 
@@ -10,8 +12,10 @@ const faqRouter = Router();
 faqRouter.post("/add-faq", async (req, res) => {
     const { question, answer } = req.body;
     try {
+        const sanitizedAnswer = sanitize(answer);
+
         const translatedQuestions = await translateTo(question);
-        const tranlatedAnswers = await translateTo(answer);
+        const tranlatedAnswers = await translateTo(sanitizedAnswer);
 
         const translations = {};
         for (const lang of supportedLanguages) {

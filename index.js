@@ -10,7 +10,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/faq", faqRouter);
+app.use("/api/faqs", faqRouter);
 
 async function main() {
     app.listen(3000, (req, res)=> {
