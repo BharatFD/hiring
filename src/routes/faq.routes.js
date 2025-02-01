@@ -5,7 +5,7 @@ import { getFaqs, createFaq } from '../controllers/faq.controller.js';
 
 const router = express.Router();
 
-router.get('/', cacheMiddleware(900), asyncHandler(getFaqs)); 
-router.post('/', asyncHandler(createFaq)); 
+router.get('/faqs', cacheMiddleware(900), asyncHandler(getFaqs)); 
+router.post('/faqs', asyncHandler(createFaq)); 
 
 export default router;

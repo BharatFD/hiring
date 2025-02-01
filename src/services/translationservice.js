@@ -6,6 +6,6 @@ export const translateText = async (text, targetLang) => {
     return result.text;
   } catch (error) {
     console.error('Translation error:', error);
-    return text;
+    return text; // Fallback to original text
   }
 };

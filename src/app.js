@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/admin", adminRoutes);
-app.use('/api/faqs', faqRoutes);
+app.use('/api/users', faqRoutes);
 
 // Error handling middleware (must be placed after routes)
 app.use(errorHandler);
