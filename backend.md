@@ -86,7 +86,6 @@ Candidates will be evaluated based on:
 - **Include the link to your GitHub repository**, which must be **publicly accessible**.
 
 ---
-
 ## **Example API Usage**
 ```bash
 # Fetch FAQs in English (default)
@@ -102,4 +101,94 @@ curl http://localhost:8000/api/faqs/?lang=bn
 ---
 
 This test ensures the candidate demonstrates **full-stack Django development skills**, covering **models, APIs, caching, internationalization, and documentation**. 🚀
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.core.cache import cache
+from ckeditor.fields import RichTextField
+from googletrans import Translator
+
+translator = Translator()
+
+class FAQ(models.Model):
+    question = models.TextField(_('Question'))
+    answer = RichTextField(_('Answer'))
+    question_hi = models.TextField(_('Question in Hindi'), blank=True, null=True)
+    question_bn = models.TextField(_('Question in Bengali'), blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.question_hi:
+            self.question_hi = translator.translate(self.question, dest='hi').text
+        if not self.question_bn:
+            self.question_bn = translator.translate(self.question, dest='bn').text
+        super().save(*args, **kwargs)
+
+    def get_translated_question(self, lang):
+        cache_key = f'faq_{self.id}_question_{lang}'
+        cached_translation = cache.get(cache_key)
+        if cached_translation:
+            return cached_translation
+        
+        translated_text = getattr(self, f'question_{lang}', self.question)
+        cache.set(cache_key, translated_text, timeout=86400)
+        return translated_text
+
+    def __str__(self):
+        return self.question
+
+from rest_framework import serializers, viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import action
+
+class FAQSerializer(serializers.ModelSerializer):
+    translated_question = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = FAQ
+        fields = ['id', 'question', 'translated_question', 'answer']
+    
+    def get_translated_question(self, obj):
+        request = self.context.get('request')
+        lang = request.GET.get('lang', 'en')
+        return obj.get_translated_question(lang)
+
+class FAQViewSet(viewsets.ModelViewSet):
+    queryset = FAQ.objects.all()
+    serializer_class = FAQSerializer
+
+    @action(detail=False, methods=['get'])
+    def by_language(self, request):
+        lang = request.GET.get('lang', 'en')
+        faqs = FAQ.objects.all()
+        data = [
+            {
+                'id': faq.id,
+                'translated_question': faq.get_translated_question(lang),
+                'answer': faq.answer
+            }
+            for faq in faqs
+        ]
+        return Response(data)
+
+# settings.py configuration
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'ckeditor',
+    'faq',  # Assuming app name
+]
+
+# Redis Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
+
 
