@@ -1,31 +1,46 @@
-# Hiring Test Repository
+# FAQ Project
 
-Welcome to the [BharatFD](https://bharatfd.com) **Hiring Repository**. This repository contains test assignments for backend and frontend developers.
+This project is a Django-based FAQ management system that supports multi-language translations, rich text editing with CKEditor, and caching with Redis for improved performance. A REST API built with Django REST Framework allows for CRUD operations and language-specific data retrieval.
 
-## 📌 Available Tests
-### **Backend Test (Python/Django)**
-The backend test evaluates your ability to:
-- Work with Django models, API development, and multilingual support.
-- Integrate WYSIWYG editors and handle caching efficiently.
-- Follow best practices for Git, documentation, and testing.
+## Table of Contents
 
-For full details, see: **[backend.md](backend.md)**
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Project](#running-the-project)
+- [API Usage](#api-usage)
+- [Running Tests](#running-tests)
+- [Contribution Guidelines](#contribution-guidelines)
+- [License](#license)
 
-## 📋 Submission Guidelines
-### **Steps to Submit Your Solution**
-1. **Attempt the assignment** and complete your solution.
-2. **Open an issue** in this repository with the relevant tag (`backend` or `frontend`, depending on the test you're applying for).
-3. **Once done, tag @theakshaydhiman** in the issue, and we will review your code.
-4. **Include the link to your GitHub repository**, which must be **publicly accessible**.
+## Features
 
-### **Repository Requirements**
-- Ensure your repository contains a **detailed README** with:
-  - Installation steps
-  - API usage examples
-  - Any additional notes or instructions
-- Use **Git for version control**, with meaningful commit messages.
+- **CRUD Operations:** Create, retrieve, update, and delete FAQs.
+- **Automatic Translation:** FAQs are automatically translated to Hindi (`hi`) and Bengali (`bn`) using the googletrans API upon creation.
+- **Rich Text Editing:** The answer field utilizes CKEditor for a WYSIWYG editing experience.
+- **REST API:** Endpoints support language selection via a query parameter (e.g., `?lang=hi`).
+- **Redis Caching:** API responses are cached using Redis to improve performance.
+- **Admin Panel:** Manage FAQs using Django's built-in admin interface.
 
-## 🚀 Need Help?
-If you have any questions or require clarification, please **open an issue** in this repository.
+## Prerequisites
 
-Happy coding! 🎉
+Before running the project, ensure you have the following installed:
+
+- **Python 3.8+**
+- **pip** (Python package installer)
+- **Virtualenv** (optional but recommended)
+- **Redis Server**  
+  - For Ubuntu/Debian: `sudo apt-get install redis-server`
+  - For macOS: `brew install redis`
+  - For Windows: Use a Redis installer or run via Docker
+
+## Installation
+
+Follow these steps to install and set up the project:
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone <repository_url>
+   cd faq_project

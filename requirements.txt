@@ -1,0 +1,7 @@
+Django>=3.2,<4.0
+djangorestframework
+django-ckeditor
+django-redis
+redis
+googletrans==4.0.0-rc1
+pytest-django
