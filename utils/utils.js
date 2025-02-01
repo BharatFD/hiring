@@ -1,15 +1,16 @@
-const tr = require("googletrans").default;
+import { googletrans } from 'googletrans';
 
-const supportedLanguages = ['hi', 'mr', 'bn'];
 
-async function translateTo(text) {
+export const supportedLanguages = ['hi', 'mr', 'bn'];
+
+export async function translateTo(text) {
     // console. log(text);
     // console.log(lang);
     const translations = {};
     for(const lang of supportedLanguages) {
 
         try {
-            const response = await tr(text, {to: lang});
+            const response = await googletrans(text, {to: lang});
             translations[lang] = response.text;
         } catch(e) {
             console.log("Translation error: ",e);
@@ -19,8 +20,3 @@ async function translateTo(text) {
     return translations;
 }
 
-
-module.exports = {
-    translateTo,
-    supportedLanguages
-}

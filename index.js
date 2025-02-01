@@ -1,13 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const { faqRouter } = require('./routes/faq');
-const { redisClient } = require('./utils/redis');
+import express from 'express';
+import  mongoose from "mongoose";
+import  dotenv from 'dotenv';
+import { faqRouter } from './routes/faq.js';
+import  { redisClient } from './utils/redis.js';
 
 dotenv.config();
 
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 

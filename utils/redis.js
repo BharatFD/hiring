@@ -1,10 +1,6 @@
-const {createClient} = require('redis');
-const dotenv = require('dotenv');
+import  {createClient} from 'redis';
+import  dotenv from 'dotenv';
 
 dotenv.config();
 
-const redisClient = new createClient();
-
-module.exports = {
-    redisClient
-}
+export const redisClient = new createClient();

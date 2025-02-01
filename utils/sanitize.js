@@ -1,14 +1,12 @@
-const createDOMPurify  = require('dompurify');
-const {JSDOM} = require('jsdom');
+import createDOMPurify from 'dompurify';
+import {JSDOM} from 'jsdom';
 
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
 
-function sanitize(unSafeText) {
+export function sanitize(unSafeText) {
     const response = DOMPurify.sanitize(unSafeText);
     return response;
 }
 
-module.exports={
-    sanitize
-}
+

@@ -1,6 +1,6 @@
-const { redisClient } = require("../utils/redis");
+import { redisClient } from "../utils/redis.js";
 
-function cacheMiddleware(key) {
+export function cacheMiddleware(key) {
     return async (req, res, next) => {
         const lang = req.query.lang || 'en';
         const cachedKey = `${key}:${lang}`;
@@ -25,6 +25,3 @@ function cacheMiddleware(key) {
     }
 }
 
-module.exports = {
-    cacheMiddleware
-}

@@ -1,12 +1,12 @@
-const Router = require('express');
-const { translateTo, supportedLanguages } = require('../utils/utils');
-const { faqModel } = require('../database/db');
-const { sanitize } = require('../utils/sanitize');
-const { cacheMiddleware } = require('../middlewares/cacheMiddleware');
-const { redisClient } = require('../utils/redis');
+import Router from 'express';
+import { translateTo, supportedLanguages } from '../utils/utils.js';
+import { faqModel } from '../database/db.js';
+import { sanitize } from '../utils/sanitize.js';
+import { cacheMiddleware } from '../middlewares/cacheMiddleware.js';
+import { redisClient } from '../utils/redis.js';
 
 
-const faqRouter = Router();
+export const faqRouter = Router();
 
 
 
@@ -71,6 +71,3 @@ faqRouter.get("/get-faq", cacheMiddleware('faq'), async (req, res)=>{
 
 
 
-module.exports = {
-    faqRouter
-}
