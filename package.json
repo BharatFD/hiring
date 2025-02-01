@@ -1,0 +1,45 @@
+{
+  "name": "backend-node-faq",
+  "version": "1.0.0",
+  "description": "Welcome to the [BharatFD](https://bharatfd.com) **Hiring Repository**. This repository contains test assignments for backend and frontend developers.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "test": "jest --config=jest.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saqib001-github/backend-node-faq.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/saqib001-github/backend-node-faq/issues"
+  },
+  "homepage": "https://github.com/saqib001-github/backend-node-faq#readme",
+  "dependencies": {
+    "@jest/globals": "^29.7.0",
+    "@prisma/client": "^6.3.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/supertest": "^6.0.2",
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "prisma": "^6.3.0",
+    "redis": "^4.7.0",
+    "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  }
+}
