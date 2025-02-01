@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: faq_app
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+      - mongo
+    environment:
+      MONGO_URI: mongodb://mongo:27017/faqdb
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - app_network
+
+  redis:
+    image: redis:6.0
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+  mongo:
+    image: mongo:4.4
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - app_network
+    volumes:
+      - mongo_data:/data/db
+
+networks:
+  app_network:
+
+volumes:
+  mongo_data:
