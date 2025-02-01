@@ -16,6 +16,7 @@
     "express": "^4.21.2",
     "googletrans": "^1.0.21",
     "jsdom": "^26.0.0",
-    "mongoose": "^8.9.5"
+    "mongoose": "^8.9.5",
+    "redis": "^4.7.0"
   }
 }

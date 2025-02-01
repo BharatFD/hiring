@@ -2,6 +2,8 @@ const Router = require('express');
 const { translateTo, supportedLanguages } = require('../utils/utils');
 const { faqModel } = require('../database/db');
 const { sanitize } = require('../utils/sanitize');
+const { cacheMiddleware } = require('../middlewares/cacheMiddleware');
+const { redisClient } = require('../utils/redis');
 
 
 const faqRouter = Router();
@@ -42,8 +44,8 @@ faqRouter.post("/add-faq", async (req, res) => {
     }
 })
 
-faqRouter.get("/get-faq", async (req, res)=>{
-    const lang = req.query.lang;
+faqRouter.get("/get-faq", cacheMiddleware('faq'), async (req, res)=>{
+    const lang = req.query.lang || 'en';
 
     try {
         const faqs = await faqModel.find();
@@ -51,6 +53,9 @@ faqRouter.get("/get-faq", async (req, res)=>{
             question: faq.translations[lang]?.question || faq.question,
             answer: faq.translations[lang]?.answer || faq.answer,
         }));
+
+        await redisClient.set(`faq:${lang}`, JSON.stringify(translatedFAQS));
+
         res.status(200).json({
             translatedFAQS
         });
