@@ -45,16 +45,18 @@ faqRouter.post("/add-faq", async (req, res) => {
 })
 
 faqRouter.get("/get-faq", cacheMiddleware('faq'), async (req, res)=>{
-    const lang = req.query.lang || 'en';
+    const lang = req.query.lang;
 
     try {
-        const faqs = await faqModel.find();
+        const faqs = await faqModel.find({});
         const translatedFAQS = faqs.map(faq => ({
             question: faq.translations[lang]?.question || faq.question,
             answer: faq.translations[lang]?.answer || faq.answer,
         }));
 
-        await redisClient.set(`faq:${lang}`, JSON.stringify(translatedFAQS));
+        await redisClient.set(`faq:${lang}`, JSON.stringify(translatedFAQS),{
+            EX: 10,
+        });
 
         res.status(200).json({
             translatedFAQS
@@ -68,6 +70,34 @@ faqRouter.get("/get-faq", cacheMiddleware('faq'), async (req, res)=>{
     }
 })
 
+
+faqRouter.delete("/delete-faq/:id", async (req, res)=> {
+    const id = req.params.id;
+    console.log(id);
+    
+    try {
+        const response = await faqModel.findOne({_id: id});
+        console.log(response);
+        
+        if(response) {
+            await faqModel.deleteOne({id});
+            res.status(200).json({
+                message: "Delete success"
+            })
+            return;
+        } else {
+            res.status(400).json({
+                message: "No such reponse exists"
+            })
+            return;
+        }
+    } catch(e) {
+        res.status(500).json({
+            message: "Error deleting response "+e,
+        })
+        return
+    }
+})
 
 
 

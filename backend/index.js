@@ -3,6 +3,8 @@ import  mongoose from "mongoose";
 import  dotenv from 'dotenv';
 import { faqRouter } from './routes/faq.js';
 import  { redisClient } from './utils/redis.js';
+import cors from 'cors';
+
 
 dotenv.config();
 
@@ -10,7 +12,7 @@ dotenv.config();
 export const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 app.use("/api/faqs", faqRouter);
 
 async function main() {
