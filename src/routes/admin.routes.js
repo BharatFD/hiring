@@ -4,7 +4,7 @@ import {
   createFaq,
   updateFaq,
   deleteFaq,
-  deleteallFaq
+  deleteAllFaqs
 } from '../controllers/admin.controller.js';
 import { asyncHandler } from '../utils/utils.js'; 
 
@@ -14,6 +14,6 @@ router.get('/faqs', asyncHandler(getAllFaqs));
 router.post('/faqs', asyncHandler(createFaq));
 router.put('/faqs/:id', asyncHandler(updateFaq));
 router.delete('/faqs/:id', asyncHandler(deleteFaq));
-router.delete('/faqs/', asyncHandler(deleteallFaq));
+router.delete('/faqs/', asyncHandler(deleteAllFaqs));
 
 export default router;

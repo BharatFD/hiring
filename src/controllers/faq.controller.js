@@ -35,22 +35,26 @@ export const createFaq = asyncHandler(async (req, res) => {
   res.status(201).json(new ApiResponse(201, faq, 'FAQ created successfully with translations.'));
 });
 
-// Get all FAQs with translation based on language query
 export const getFaqs = asyncHandler(async (req, res) => {
   const lang = req.query.lang || 'en'; // Default to 'en' if no language is provided
   const faqs = await Faq.find();
 
+  // If no FAQs are found, return an empty array
+  if (!faqs.length) {
+    return res.json(new ApiResponse(200, [], `No FAQs available.`));
+  }
+
   const transformedFaqs = faqs.map((faq) => {
     const translationsObj = faq.translations || {}; // Ensure translations object exists
-    const translation = translationsObj[lang];
+    const translation = translationsObj[lang] || {}; // Get the translation for the requested language
 
-    // Log the available translations for the FAQ
     console.log(`Translations for FAQ '${faq.question}':`, translationsObj);
 
-    // If the translation for the requested language exists, return it, else fall back to the original question/answer
+    // Return the FAQ with translation, falling back to original if no translation found
     return {
-      question: translation?.question || faq.question,
-      answer: translation?.answer || faq.answer,
+      lang, // Include the requested language in the response
+      question: translation.question || faq.question, 
+      answer: translation.answer || faq.answer,
     };
   });
 
