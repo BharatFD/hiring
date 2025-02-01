@@ -79,3 +79,23 @@ export const deleteFaq = async (req, res, next) => {
     next(error); 
   }
 };
+
+// Delete all FAQs
+export const deleteAllFaqs = async (req, res, next) => {
+  try {
+    const result = await Faq.deleteMany({}); // Deletes all documents in the 'faqs' collection
+    
+    if (result.deletedCount === 0) {
+      throw new ApiError(404, 'No FAQs found to delete.');
+    }
+
+    const response = new ApiResponse(200, { 
+      message: 'All FAQs deleted successfully',
+      deletedCount: result.deletedCount // Return the count of deleted documents
+    });
+    
+    res.status(200).json(response); 
+  } catch (error) {
+    next(error); 
+  }
+};
