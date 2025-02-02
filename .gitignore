@@ -1,0 +1,52 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+debug.log
+*.pid
+*.seed
+*.pid.lock
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Prisma
+prisma/migrations/
+prisma/.env
+
+# Docker
+docker-compose.override.yml
+*.dockerfile
+
+# Cache files
+.cache/
+tmp/
+out/
+public/
