@@ -1,0 +1,46 @@
+{
+  "name": "bharatfd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn src/app.ts",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "test": "mocha dist/test/tests.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@vitalets/google-translate-api": "^9.2.1",
+    "lint": "eslint .",
+    "format": "npx prettier . --write",
+    "lint:fix": "eslint . --fixx",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.6",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.0.1",
+    "@types/chai-http": "^3.0.5",
+    "@types/mocha": "^10.0.10",
+    "@types/sinon": "^17.0.3",
+    "chai": "^5.1.2",
+    "chai-http": "^5.1.1",
+    "eslint": "^9.19.0",
+    "eslint-plugin-mocha": "^10.5.0",
+    "mocha": "^11.1.0",
+    "nodemon": "^3.1.9",
+    "nyc": "^17.1.0",
+    "sinon": "^19.0.2",
+    "sinon-chai": "^4.0.0",
+    "ts-node": "^10.9.2"
+  }
+}
