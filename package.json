@@ -1,0 +1,31 @@
+{
+  "name": "faqs-model",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/server.js",
+    "dev":"npm run build && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rohan5050/Faqs-Model.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rohan5050/Faqs-Model/issues"
+  },
+  "homepage": "https://github.com/Rohan5050/Faqs-Model#readme",
+  "dependencies": {
+    "@google-cloud/translate": "^8.5.0",
+    "@prisma/client": "^6.3.0",
+    "@types/cors": "^2.8.17",
+    "@types/typescript": "^0.4.29",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "libretranslate": "^1.0.1"
+  }
+}

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: faq_app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - libretranslate
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    networks:
+      - faq_network
+
+  db:
+    image: postgres:15
+    container_name: faq_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: faqdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - faq_network
+
+  libretranslate:
+    image: libretranslate/libretranslate
+    container_name: LibreTranslate
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      LT_LOAD_ONLY: "en,hi,bn"
+      LT_API_KEY: "false"
+    networks:
+      - faq_network
+
+networks:
+  faq_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
