@@ -1,0 +1,30 @@
+{
+  "name": "bharatfd-hiring-challenge",
+  "version": "1.0.0",
+  "description": "Welcome to the [BharatFD](https://bharatfd.com) **Hiring Repository**. This repository contains test assignments for backend and frontend developers.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dompurify": "^3.2.4",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "googletrans": "^1.0.21",
+    "jsdom": "^26.0.0",
+    "mongoose": "^8.9.5",
+    "redis": "^4.7.0",
+    "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "chai": "npm:@esm-bundle/chai@^4.3.4-fix.0",
+    "chai-http": "^5.1.1",
+    "mocha": "^11.1.0"
+  }
+}
